@@ -82,9 +82,11 @@ public class Klient {
         ArrayList<Pakiet> list=Transakcja.mapTransakcji.get(identyficator);
         for (Pakiet pakiet : list){
             if(pakiet.getNazwa().equals(nazwa) && pakiet.getTyp().equals(typ) && ilosc<= pakiet.getIlosc()){
+                int i = pakiet.getIlosc();
+                pakiet.setIlosc(ilosc);
                 Koszyk.mapKoszyk.get(identyficator).add(pakiet);
                 portfel+=pakiet.getCena();
-                pakiet.reduceIlosc();
+                pakiet.setIlosc(i);
             }
         }
     }
