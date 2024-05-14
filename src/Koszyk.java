@@ -10,18 +10,14 @@ public class Koszyk extends Lista {
 
     public Koszyk(String klientID) {
         super(klientID);
-    mapKoszyk.put(klientID,new ArrayList<>());
-    listOfCopies=new ArrayList<>();
+        mapKoszyk.put(klientID,new ArrayList<>());
+        listOfCopies=new ArrayList<>();
 
     }
     public ArrayList<Pakiet> pobierzKoszyk(){
         return Koszyk.mapKoszyk.get(klientID);
     }
 
-    private void add(Pakiet pakiet){
-        mapKoszyk.get(klientID).add(pakiet);
-
-    }
 
     public double getSuma() {
         return suma;
@@ -34,7 +30,7 @@ public class Koszyk extends Lista {
             Pakiet pakiet= iterator.next();
             if(pakiet.getCena()< pakietLowestPrice.getCena()) pakietLowestPrice=pakiet;
         }
-    return pakietLowestPrice;
+        return pakietLowestPrice;
     }
     public void remoweOneCopy(Pakiet pakiet){
         if(pakiet.getIlosc()>1) {
@@ -44,23 +40,19 @@ public class Koszyk extends Lista {
 
     }
 
-    public ArrayList<Pakiet> getListOfCopies() {
-        return listOfCopies;
-    }
-
     public void updateSum(){
         suma=0;
         for(Pakiet pakiet : this.pobierzKoszyk()){
             suma+= pakiet.getCena() * pakiet.getIlosc();
         }
-   }
-   public void remowePakiet(Pakiet pakiet){
+    }
+    public void remowePakiet(Pakiet pakiet){
         Koszyk.mapKoszyk.remove(klientID).remove(pakiet);
-   }
+    }
 
-   public void clear(){
-       pobierzKoszyk().clear();
-   }
+    public void clear(){
+        pobierzKoszyk().clear();
+    }
 
     @Override
     public String toString() {

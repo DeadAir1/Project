@@ -44,7 +44,9 @@ public abstract class Pakiet {
 
     @Override
     public String toString() {
-        return nazwa + ", "+ "typ:"+ getClass()+", " + ilosc + " okresy, cena " + (cena>0? cena : "brak") + "\n";
+        String str=getClass().toString();
+        String tab[]=str.split(" ");
+        return nazwa + ", "+ "typ:"+ tab[1]+", " + ilosc + " okresy, cena " + (cena>0? cena : "brak") + "\n";
     }
 
     public Typ getTyp() {
