@@ -2,28 +2,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class Koszyk  {
-
+public class Koszyk extends Lista {
     private double suma;
-    private String klientID;
-    private Pakiet pakiet;
     static HashMap<String, ArrayList<Pakiet>> mapKoszyk=new HashMap<>();
     ArrayList<Pakiet> listOfCopies;
 
 
     public Koszyk(String klientID) {
-        this.klientID=klientID;
+        super(klientID);
     mapKoszyk.put(klientID,new ArrayList<>());
     listOfCopies=new ArrayList<>();
 
     }
-    public ArrayList<Pakiet> getKoszyk(){
+    public ArrayList<Pakiet> pobierzKoszyk(){
         return Koszyk.mapKoszyk.get(klientID);
     }
 
     private void add(Pakiet pakiet){
-        this.pakiet=pakiet;
-        mapKoszyk.get(klientID).add(this.pakiet);
+        mapKoszyk.get(klientID).add(pakiet);
 
     }
 
@@ -32,7 +28,7 @@ public class Koszyk  {
     }
 
     public Pakiet getLowestPricePakiet(){
-        Iterator<Pakiet> iterator=getKoszyk().iterator();
+        Iterator<Pakiet> iterator=pobierzKoszyk().iterator();
         Pakiet pakietLowestPrice=iterator.next();
         while(iterator.hasNext()){
             Pakiet pakiet= iterator.next();
@@ -54,7 +50,7 @@ public class Koszyk  {
 
     public void updateSum(){
         suma=0;
-        for(Pakiet pakiet : this.getKoszyk()){
+        for(Pakiet pakiet : this.pobierzKoszyk()){
             suma+= pakiet.getCena() * pakiet.getIlosc();
         }
    }
@@ -63,16 +59,16 @@ public class Koszyk  {
    }
 
    public void clear(){
-     getKoszyk().clear();
+       pobierzKoszyk().clear();
    }
 
     @Override
     public String toString() {
         String str=new String();
         str +=klientID + ": \n";
-        if(getKoszyk().isEmpty()) return str + " -- pusto";
+        if(pobierzKoszyk().isEmpty()) return str + " -- pusto";
         else {
-            for (Pakiet pakiet :getKoszyk()){
+            for (Pakiet pakiet :pobierzKoszyk()){
                 str+= pakiet.toString() ;
             }
 

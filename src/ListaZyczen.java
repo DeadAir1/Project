@@ -1,14 +1,13 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ListaZyczen  {
+public class ListaZyczen extends Lista {
 
      static HashMap<String,ArrayList<Pakiet>> mapListZyczen=new HashMap<>();
-    private String klientID;
 
     public ListaZyczen(String klientID) {
-       mapListZyczen.put(klientID,new ArrayList<>());
-        this.klientID=klientID;
+        super(klientID);
+        mapListZyczen.put(klientID,new ArrayList<>());
     }
 
 
