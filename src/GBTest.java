@@ -3,7 +3,7 @@ public class GBTest {
 
     // cena pakietów danego typu z koszyka
     static int cena(Koszyk k, String nazwaPakietu) {
-        for (Pakiet pakiet : k.pobierzKoszyk() ){
+        for (Pakiet pakiet : k.getListKoszyk() ){
             if(pakiet.getNazwa().equals(nazwaPakietu)){
                 return pakiet.getIlosc() * pakiet.getCena();
             }

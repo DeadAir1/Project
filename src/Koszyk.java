@@ -4,17 +4,22 @@ import java.util.Iterator;
 
 public class Koszyk extends Lista {
     private double suma;
-    static HashMap<String, ArrayList<Pakiet>> mapKoszyk=new HashMap<>();
+    static HashMap<String,Koszyk> mapKoszyk=new HashMap<>();
     ArrayList<Pakiet> listOfCopies;
+    private ArrayList<Pakiet> listKoszyk=new ArrayList<>();
 
+    public ArrayList<Pakiet> getListKoszyk() {
+        return listKoszyk;
+    }
 
     public Koszyk(String klientID) {
         super(klientID);
-        mapKoszyk.put(klientID,new ArrayList<>());
+        mapKoszyk.put(klientID,this);
         listOfCopies=new ArrayList<>();
 
+
     }
-    public ArrayList<Pakiet> pobierzKoszyk(){
+    public Koszyk pobierzKoszyk(){
         return Koszyk.mapKoszyk.get(klientID);
     }
 
@@ -24,7 +29,7 @@ public class Koszyk extends Lista {
     }
 
     public Pakiet getLowestPricePakiet(){
-        Iterator<Pakiet> iterator=pobierzKoszyk().iterator();
+        Iterator<Pakiet> iterator=pobierzKoszyk().getListKoszyk().iterator();
         Pakiet pakietLowestPrice=iterator.next();
         while(iterator.hasNext()){
             Pakiet pakiet= iterator.next();
@@ -42,25 +47,25 @@ public class Koszyk extends Lista {
 
     public void updateSum(){
         suma=0;
-        for(Pakiet pakiet : this.pobierzKoszyk()){
+        for(Pakiet pakiet : this.getListKoszyk()){
             suma+= pakiet.getCena() * pakiet.getIlosc();
         }
     }
     public void remowePakiet(Pakiet pakiet){
-        Koszyk.mapKoszyk.remove(klientID).remove(pakiet);
+        Koszyk.mapKoszyk.remove(klientID).getListKoszyk().remove(pakiet);
     }
 
     public void clear(){
-        pobierzKoszyk().clear();
+        pobierzKoszyk().getListKoszyk().clear();
     }
 
     @Override
     public String toString() {
         String str=new String();
         str +=klientID + ": \n";
-        if(pobierzKoszyk().isEmpty()) return str + " -- pusto";
+        if(getListKoszyk().isEmpty()) return str + " -- pusto";
         else {
-            for (Pakiet pakiet :pobierzKoszyk()){
+            for (Pakiet pakiet :getListKoszyk()){
                 str+= pakiet.toString() ;
             }
 

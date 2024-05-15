@@ -19,12 +19,12 @@ public class Klient {
         klients.add(this);
     }
     public void przepakuj(){
-      ArrayList<Pakiet> list=ListaZyczen.mapListZyczen.get(this.identyficator);
+      ArrayList<Pakiet> list=ListaZyczen.mapListZyczen.get(this.identyficator).getList();
         Iterator<Pakiet> iterator=list.iterator();
         while(iterator.hasNext()){
             Pakiet pakiet= iterator.next();
             if(pakiet.getCena()>0) {
-                Koszyk.mapKoszyk.get(identyficator).add(pakiet);
+                Koszyk.mapKoszyk.get(identyficator).getListKoszyk().add(pakiet);
                 iterator.remove();
             }
         }
@@ -66,14 +66,14 @@ public class Klient {
                 this.portfel-=sum;
             }
         }
-        new Transakcja(this.identyficator,new ArrayList<>(Koszyk.mapKoszyk.get(identyficator)));
+        new Transakcja(this.identyficator,new ArrayList<>(Koszyk.mapKoszyk.get(identyficator).getListKoszyk()));
 
         this.listaZyczen.clear();
         this.koszyk.clear();
         Iterator<Pakiet> iterator=koszyk.listOfCopies.iterator();
         while(iterator.hasNext()){
             Pakiet pakiet= iterator.next();
-            Koszyk.mapKoszyk.get(identyficator).add(pakiet);
+            Koszyk.mapKoszyk.get(identyficator).getListKoszyk().add(pakiet);
         }
 
 
@@ -84,7 +84,7 @@ public class Klient {
             if(pakiet.getNazwa().equals(nazwa) && pakiet.getTyp().equals(typ) && ilosc<= pakiet.getIlosc()){
                 int i = pakiet.getIlosc();
                 pakiet.setIlosc(ilosc);
-                Koszyk.mapKoszyk.get(identyficator).add(pakiet);
+                Koszyk.mapKoszyk.get(identyficator).getListKoszyk().add(pakiet);
                 portfel+=pakiet.getCena();
                 pakiet.setIlosc(i);
             }

@@ -3,22 +3,28 @@ import java.util.HashMap;
 
 public class ListaZyczen extends Lista {
 
-    static HashMap<String,ArrayList<Pakiet>> mapListZyczen=new HashMap<>();
+    static HashMap<String,ListaZyczen> mapListZyczen=new HashMap<>();
+    private ArrayList<Pakiet> list=new ArrayList<>();
 
 
     public ListaZyczen(String klientID) {
         super(klientID);
-        mapListZyczen.put(klientID,new ArrayList<>());
+        mapListZyczen.put(klientID,this);
     }
 
 
     public void add(Pakiet pakiet){
         findCena(pakiet);
-        mapListZyczen.get(klientID).add(pakiet);
+        mapListZyczen.get(klientID).getList().add(pakiet);
     }
-    public ArrayList<Pakiet> getListaZyczen(){
-        return ListaZyczen.mapListZyczen.get(klientID);
+    public ListaZyczen getListaZyczen(){
+        return this;
     }
+
+    public ArrayList<Pakiet> getList() {
+        return list;
+    }
+
     private void findCena(Pakiet pakiet) {
         Cennik cennik=Cennik.pobierzCennik();
         PaketInfo paketInfo=cennik.findByName(pakiet.getNazwa());
@@ -53,15 +59,15 @@ public class ListaZyczen extends Lista {
 
     }
     public void clear(){
-        this.getListaZyczen().clear();
+        this.getListaZyczen().getList().clear();
     }
     @Override
     public String toString() {
         String str=new String();
         str +=klientID + ": \n";
-        if(getListaZyczen().isEmpty()) return str + "-- pusto";
+        if(list.isEmpty()) return str + "-- pusto";
         else {
-            for (Pakiet pakiet :getListaZyczen()){
+            for (Pakiet pakiet :list){
                 str+= pakiet.toString() ;
             }
 
